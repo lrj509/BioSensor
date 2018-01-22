@@ -1,7 +1,9 @@
 class sensor():
     
     """
+    This class encapsulates all of the sensor functions for easy use. 
     
+    @author lrj509
     """
     
     def __init__(self):

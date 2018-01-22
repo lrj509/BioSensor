@@ -2,6 +2,12 @@
 
 class control():
     
+    """
+    This class handles all the backend functionality of the program.
+    
+    @author lrj509
+    """
+    
     def __init__(self):
         
         """
@@ -11,6 +17,7 @@ class control():
         return_data = []
         
         return
+
     
     def get_raw_data(self):
         
@@ -37,6 +44,7 @@ class control():
         """
         
         """
+        
     
     def calculate_purity(self):
         
@@ -54,6 +62,16 @@ class control():
         """
         
         self.return_data = []
+        
+    def self_check(self):
+        
+        """
+        
+        """
+        
+        pass_or_fail = True
+        
+        return(pass_or_fail)
         
 x = control()
 x.export_data(12)

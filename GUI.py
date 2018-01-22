@@ -1,7 +1,9 @@
 class GUI():
     
     """
+    This class handles all the frontend functionality of the program.
     
+    @author lrj509
     """
     
     def __init__(self):
