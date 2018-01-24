@@ -68,7 +68,17 @@ class control():
         """
         
         """
+        import csv
         
+        fl = '/home/pi/Workshops52M/Workshop3/fluorescence_levels.csv'
+        x = [[12.0,12.0,12.0,12.0],[12.0,12.0,12.0,12.0],[12.0,12.0,12.0,12.0]]
+        
+        print('Writing to file', fl)
+        with open(fl, 'w',) as csvfile:
+            fluorescence_levels = csvwriter(csvfile)
+            fluorescence_levels.writerow(['sensor_1','sensor_2','sensor_3','Time'])
+            for i in x:
+                flourescence_levels.writerow(i)
     
     def calculate_purity(self):
         
