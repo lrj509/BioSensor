@@ -20,7 +20,7 @@ class sensor():
         Returns the value for sensor one.
         """
         
-        sensor_1_value = 12
+        sensor_1_value = 12.0
         
         return(sensor_1_value)
     
@@ -30,7 +30,7 @@ class sensor():
         Returns the value for sensor two.
         """
         
-        sensor_2_value = 12
+        sensor_2_value = 12.0
         
         return(sensor_2_value)
     
@@ -40,7 +40,7 @@ class sensor():
         Returns the value for sensor three.
         """
         
-        sensor_3_value = 12
+        sensor_3_value = 12.0
         
         return(sensor_3_value)
     
