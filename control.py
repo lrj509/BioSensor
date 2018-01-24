@@ -73,6 +73,6 @@ class control():
         
         return(pass_or_fail)
         
-x = control()
-x.export_data(12)
-print("done")
+#x = control()
+#x.export_data(12)
+#print("done")
