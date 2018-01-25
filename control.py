@@ -83,10 +83,16 @@ class control():
     def calculate_purity(self):
         
         """
-        
+        Working progress
         """
-        purity = 0.45
-        
+        #recorded fluorescence
+        x = 10.0
+
+        #max fluorescence
+        y = 12.0
+
+        purity = (x*y)/100
+
         return(purity)
     
     def record_data(self, no_of_samples, interval):
