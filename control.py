@@ -87,10 +87,10 @@ class control():
         Working progress. Converts peak fluorescence recorded into
         a sample purity percentage.
         """
-        #recorded fluorescence
+        #recorded/peak fluorescence
         x = 10.0
 
-        #max fluorescence
+        #max/100% fluorescence
         y = 12.0
 
         purity = (x*y)/100
