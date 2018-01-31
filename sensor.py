@@ -64,6 +64,7 @@ class sensor():
         finally:
             GPIO.cleanup()
         
+<<<<<<< HEAD
         sensor_1_value = 12
     
     def get_sensor_2_value(self): #Digital sensor
@@ -89,3 +90,30 @@ class sensor():
         return(sensor_2_value)
     
     
+=======
+        sensor_1_value = 12.0
+        
+        return(sensor_1_value)
+    
+    def get_sensor_2_value(self):
+        
+        """
+        Returns the value for sensor two.
+        """
+        
+        sensor_2_value = 12.0
+        
+        return(sensor_2_value)
+    
+    def get_sensor_3_value(self):
+        
+        """
+        Returns the value for sensor three.
+        """
+        
+        sensor_3_value = 12.0
+        
+        return(sensor_3_value)
+    
+    
+>>>>>>> ee7df814c973cc191089d87b42f6a0428956be5c
