@@ -1,5 +1,10 @@
 class sensor():
-    
+
+#Import python modules
+    import RPi.GPIO as GPIO
+    import time
+    import tsl2591
+
     """
     This class encapsulates all of the sensor functions for easy use. 
     
@@ -15,10 +20,6 @@ class sensor():
         return
     
    def get_sensor_1_value(self): #Analogue sensor
-
-        #Import python modules
-           import RPi.GPIO as GPIO
-           import time
            
         # Set variables
            sensor_1_pin=
@@ -55,24 +56,15 @@ class sensor():
                     rc = rc_time(sensor_1_pin)
                     print(t, rc)
         
-            t += 1 # increment loop
-            time.sleep(0.95 - rc) # wait 1 second
-
-        except:
+            except:
             print('An error or exception occurred')
 
         finally:
             GPIO.cleanup()
-        
-<<<<<<< HEAD
+
         sensor_1_value = 12
     
     def get_sensor_2_value(self): #Digital sensor
-
-        #Import python modules
-            import time
-            import tsl2591
-            
 
         tsl = tsl2591.Tsl2591()  # initialize
         full, ir = tsl.get_full_luminosity()  # read raw values (full spectrum and ir spectrum)
@@ -88,32 +80,3 @@ class sensor():
                     print(t, lux)
         
         return(sensor_2_value)
-    
-    
-=======
-        sensor_1_value = 12.0
-        
-        return(sensor_1_value)
-    
-    def get_sensor_2_value(self):
-        
-        """
-        Returns the value for sensor two.
-        """
-        
-        sensor_2_value = 12.0
-        
-        return(sensor_2_value)
-    
-    def get_sensor_3_value(self):
-        
-        """
-        Returns the value for sensor three.
-        """
-        
-        sensor_3_value = 12.0
-        
-        return(sensor_3_value)
-    
-    
->>>>>>> ee7df814c973cc191089d87b42f6a0428956be5c
