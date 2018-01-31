@@ -66,17 +66,35 @@ class control():
     def export_data(self, export_type):
         
         """
-        
+        This file exports the fluorescence reading from each light
+        sensor, against time, to a csv file.
         """
+        import csv
         
+        fl = '/home/pi/Workshops52M/Workshop3/fluorescence_levels.csv'
+        x = [[12.0,12.0,12.0,12.0],[12.0,12.0,12.0,12.0],[12.0,12.0,12.0,12.0]]
+        
+        print('Writing to file', fl)
+        with open(fl, 'w',) as csvfile:
+            fluorescence_levels = csvwriter(csvfile)
+            fluorescence_levels.writerow(['sensor_1','sensor_2','sensor_3','Time'])
+            for i in x:
+                flourescence_levels.writerow(i)
     
     def calculate_purity(self):
         
         """
-        
+        Working progress. Converts peak fluorescence recorded into
+        a sample purity percentage.
         """
-        purity = 0.45
-        
+        #recorded fluorescence
+        x = 10.0
+
+        #max fluorescence
+        y = 12.0
+
+        purity = (x*y)/100
+
         return(purity)
     
     def record_data(self, no_of_samples, interval):
