@@ -1,5 +1,11 @@
 class camera():
-    
+
+#Import python modules
+    import time
+    import picamera
+    import cv2
+    import numpy as np
+
     """
     This class handles all the camera functions.
     
@@ -16,9 +22,6 @@ class camera():
     
     def get_picture(self):
         
-        import time
-        import picamera
-
         with picamera.PiCamera() as camera:
 
             camera.start_preview()
@@ -30,19 +33,28 @@ class camera():
     
     def get_interpreted_picture(self):
         
-       import Image #Might need to install Python image library
-       myImage=Image.open('image name')
-       myImage.show() #to display image 
+    img=cv2.imread("your_image.png",0)
 
-        black = makeColor (0,0,0)
-        red= makeColor(255,0,0) #Change colour for colour of luminescence 
+    def nothing(x)
+        pass
 
-    #To calculate number of pixels of a given colour, black should be background of the image
-       for pixel in getPixels(picture):
-           color = getColor(pixel)
-           if color == black: numblacks += 1
-           else color == red: numreds += 1
-           print('black =' + str(black) + 'red =' str(red))
+    cv2.namedWindow('image')
+
+    cv2.createTrackbar('min','image',0,255,nothing)
+    cv2.createTrackbar('max','image',0,255,nothing)
+
+    while(1):
+
+     a = cv2.getTrackbarPos('min','image')
+     b = cv2.getTrackbarPos('max','image')
+     ret,thresh=cv2.threshold(img,a,b,cv2.THRESH_BINARY_INV) #Thresholds the image
+     cv2.imshow("output",thresh)
+     k = cv2.waitKey(10) & 0xFF
+     if k == 27:
+        break
+    
+    print cv2.countNonZero(thresh) #Counts the nuber of white pixels and gives the output
+    cv2.destroyAllWindows()
 
         return 
         
