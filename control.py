@@ -66,7 +66,8 @@ class control():
     def export_data(self, export_type):
         
         """
-        
+        This file exports the fluorescence reading from each light
+        sensor, against time, to a csv file.
         """
         import csv
         
@@ -83,7 +84,8 @@ class control():
     def calculate_purity(self):
         
         """
-        Working progress
+        Working progress. Converts peak fluorescence recorded into
+        a sample purity percentage.
         """
         #recorded fluorescence
         x = 10.0
