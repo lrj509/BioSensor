@@ -33,9 +33,9 @@ class camera():
     
     def get_interpreted_picture(self):
         
-    img=cv2.imread("your_image.png",0)
+        img=cv2.imread("your_image.png",0)
 
-    def nothing(x)
+    def nothing(x):
         pass
 
     cv2.namedWindow('image')

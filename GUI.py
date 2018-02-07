@@ -2,11 +2,14 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter import simpledialog
 from control import control
+import matplotlib.pyplot as plt
 
 y = 11
 
 x = control()
 print(x.self_check())
+
+
 
 class GUI():
     

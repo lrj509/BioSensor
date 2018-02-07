@@ -81,65 +81,65 @@ class control():
             for i in x:
                 flourescence_levels.writerow(i)
     
-    def calculate_purity(self):
+
         
     def calculate_purity(purity_coefficent):
 
-            # acquire inputs
-            data =[[1,1,1,0],[1,2,2,0.5],[1,1,1,1],[1,1,1,1.5]]
+        # acquire inputs
+        data =[[1,1,1,0],[1,2,2,0.5],[1,1,1,1],[1,1,1,1.5]]
 
 
-            #initialise variables
-            total_1 = 0
-            total_2 = 0
-            total_3 = 0
+        #initialise variables
+        total_1 = 0
+        total_2 = 0
+        total_3 = 0
 
 
-            #calculate sum of sensor inputs
-            for i in data:
-                total_1 += i[0]
-                total_2 += i[1]
-                total_3 += i[2]
+        #calculate sum of sensor inputs
+        for i in data:
+            total_1 += i[0]
+            total_2 += i[1]
+            total_3 += i[2]
 
 
-            #calculate time elapsed
-            time_elapsed = data[-1][3]
+        #calculate time elapsed
+        time_elapsed = data[-1][3]
 
 
-            #check values
-            print(total_1)
-            print(total_2)
-            print(total_3)
-            print(data[-1][3])
+        #check values
+        print(total_1)
+        print(total_2)
+        print(total_3)
+        print(data[-1][3])
 
 
-            #calculate means of data
-            number_data_points = len(data)
-            mean_1 = total_1/number_data_points
-            mean_2 = total_2/number_data_points
-            mean_3 = total_3/number_data_points
+        #calculate means of data
+        number_data_points = len(data)
+        mean_1 = total_1/number_data_points
+        mean_2 = total_2/number_data_points
+        mean_3 = total_3/number_data_points
 
 
-            # mean of data * time taken ----> gives overall light emitted
-            overall_light_1 = mean_1 * time_elapsed
-            overall_light_2 = mean_2 * time_elapsed
-            overall_light_3 = mean_3 * time_elapsed
+        # mean of data * time taken ----> gives overall light emitted
+        overall_light_1 = mean_1 * time_elapsed
+        overall_light_2 = mean_2 * time_elapsed
+        overall_light_3 = mean_3 * time_elapsed
 
 
-            # multiply by purity coefficient (determined using standards) to give purity
-            purity_1 = overall_light_1 * purity_coefficient
-            purity_2 = overall_light_2 * purity_coefficient
-            purity_3 = overall_light_3 * purity_coefficient
+        # multiply by purity coefficient (determined using standards) to give purity
+        purity_1 = overall_light_1 * purity_coefficient
+        purity_2 = overall_light_2 * purity_coefficient
+        purity_3 = overall_light_3 * purity_coefficient
 
-            print(purity_1)
-            print(purity_2)
-            print(purity_3)
+        print(purity_1)
+        print(purity_2)
+        print(purity_3)
 
-            return(purity_1, purity_2, purity_3)
+        return(purity_1, purity_2, purity_3)
 
 
- #can be simplified into one sum: purity_1 = total_1*time_elapsed*purity_coefficent/number_data_points
-    #error checking
+        #can be simplified into one sum: purity_1 = total_1*time_elapsed*purity_coefficent/number_data_points
+        #error checking
         
         """
         Previously:
@@ -172,8 +172,9 @@ class control():
         temp_return_list = []
 
         #colec
-        for _ in range(0,no_of_samples):
-            
+        for i in range(0,no_of_samples):
+
+            print(i)
             sensor_1_value = self.sen.get_sensor_1_value()
             sensor_2_value = self.sen.get_sensor_2_value()
             sensor_3_value = self.sen.get_sensor_3_value()
@@ -245,11 +246,4 @@ class control():
         
      
         
-x = control()
-y = x.self_check()
-x.record_data(10,0.5)
-z = x.get_raw_data()
 
-print(y)
-print(z)
-print("done")
