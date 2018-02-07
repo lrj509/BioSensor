@@ -9,6 +9,17 @@ y = 11
 x = control()
 print(x.self_check())
 
+x.record_data(10,0.5)
+data = get_raw_data()
+
+data2 = []
+for i in data:
+    data2.append(i[0])
+qwertyiop = range(0,10)
+
+plt.scatter(qwetyuiop,data2)
+
+
 
 
 class GUI():
