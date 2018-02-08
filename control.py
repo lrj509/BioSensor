@@ -79,7 +79,7 @@ class control():
             fluorescence_levels = csvwriter(csvfile)
             fluorescence_levels.writerow(['sensor_1','sensor_2','sensor_3','Time'])
             for i in x:
-                flourescence_levels.writerow(i)
+                fluorescence_levels.writerow(i)
     
 
         
