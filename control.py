@@ -33,9 +33,9 @@ class control():
         """
         
         if self.return_data == []:
-            raise Exception("you havent recorded a sample yet")
-        
-        return(self.return_data)
+            return(None)
+        else:
+            return(self.return_data)
     
     def get_key_stats(self):
         
