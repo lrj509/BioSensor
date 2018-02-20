@@ -25,8 +25,9 @@ class Demo1:
         with buttons
         
         """
+        
         self.master = master
-        self.frame = tk.Frame(self.master)
+        self.frame = tk.Frameimport time(self.master)
         self.button1 = tk.Button(self.frame, text = 'Collect Data', width = 25, command = self.new_window_cd)
         self.button1.pack()
         self.button2 = tk.Button(self.frame, text = 'Plot The Data', width = 25, command = self.new_window_plot)
@@ -42,15 +43,31 @@ class Demo1:
         self.y = 11
 
     def new_window_cd(self):
+        
+        """
+        creates the window for saying that the data has completed recording
+        """
+        
         self.newWindow = tk.Toplevel(self.master)
         self.app = DataDone(self.newWindow)
     
     def new_window_plot(self):
+        
+        """
+        creates the window for plotting the data
+        """
+        
         self.newWindow = tk.Toplevel(self.master)
         self.app = plot_data(self.newWindow)
         
     def run_self_test(self):
+        
+        """
+        runs the self check, aborts the process if the self check fails
+        """
+        
         result = x.self_check()
+        
         if result == False:
             print('the self test has failed: aborting')
             self.master.destroy()
@@ -60,22 +77,36 @@ class Demo1:
             
     def is_sample_posative(self):
         
+        """
+        creates a dialogue box saying if the sample is posative or negative 
+        """
+        
         if x.is_sample_posative() == True:
             messagebox.showinfo("Result", "The sample is posative")
             
         else:
-            messagebox.showinfo("Result", "The sample is not posative")
-
-        
-
-        
-        
+            messagebox.showinfo("Result", "The sample is not posative")      
         
 
 
 
 class DataDone:
+    
+    """
+    
+    window for when the data has finished collecting, will displace a picture 
+    of a dog
+    
+    """
+    
     def __init__(self, master):
+        
+        """
+        
+        The init method
+        
+        """
+        
         self.master = master
         self.frame = tk.Frame(self.master)
         
@@ -98,9 +129,24 @@ class DataDone:
     
 
     def close_windows(self):
+        
+        """
+        
+        closes the window
+        
+        """
+        
         self.master.destroy()
         
 class plot_data:
+    
+    """
+    
+    This class handles displaying the data in the form of a graph. all of the 
+    handling is done in the init method
+    
+    """
+    
     def __init__(self, master):
         self.master = master
         self.frame = tk.Frame(self.master)
