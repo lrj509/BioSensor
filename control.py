@@ -1,7 +1,7 @@
 #imports
 from sensor import sensor
 import time
-
+import csv
 
 class control():
     
@@ -32,10 +32,7 @@ class control():
         @return 2d list
         """
         
-        if self.return_data == []:
-            return(None)
-        else:
-            return(self.return_data)
+        return(self.return_data)
     
     def get_key_stats(self):
         
@@ -63,23 +60,28 @@ class control():
         
         return(key_stats)
     
-    def export_data(self, export_type):
+    def export_data(self):
         
         """
         This file exports the fluorescence reading from each light
         sensor, against time, to a csv file.
         """
-        import csv
         
-        fl = '/home/pi/Workshops52M/Workshop3/fluorescence_levels.csv'
-        x = [[12.0,12.0,12.0,12.0],[12.0,12.0,12.0,12.0],[12.0,12.0,12.0,12.0]]
         
-        print('Writing to file', fl)
-        with open(fl, 'w',) as csvfile:
-            fluorescence_levels = csvwriter(csvfile)
-            fluorescence_levels.writerow(['sensor_1','sensor_2','sensor_3','Time'])
-            for i in x:
-                fluorescence_levels.writerow(i)
+        fl = 'export.csv'
+        x = self.get_raw_data()
+        
+        if x != []:
+            print('Writing to file', fl)
+            with open(fl, 'w',) as csvfile:
+                fluorescence_levels = csv.writer(csvfile)
+                fluorescence_levels.writerow(['sensor_1','sensor_2','sensor_3','Time'])
+                for i in x:
+                    fluorescence_levels.writerow(i)
+            print('done')
+                    
+        else:
+            print('no recorded data')
     
 
         

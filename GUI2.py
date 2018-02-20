@@ -3,82 +3,128 @@ import tkinter as tk
 from PIL import ImageTk, Image
 import matplotlib.pyplot as plt
 from control import control
+import time
+from tkinter import messagebox
 
-"""
+#initialise the control class
 x = control()
 
-class SeaofBTCapp(tk.Tk):
-
-    def __init__(self, *args, **kwargs):
+class Demo1:
+    
+    """
+    
+    This class handles the first screen, where the user chooses what to do
+    
+    """
+    
+    def __init__(self, master):
         
-        tk.Tk.__init__(self, *args, **kwargs)
-        container = tk.Frame(self)
+        """
+        
+        THe init function for the screen class, this populates the screen 
+        with buttons
+        
+        """
+        self.master = master
+        self.frame = tk.Frame(self.master)
+        self.button1 = tk.Button(self.frame, text = 'Collect Data', width = 25, command = self.new_window_cd)
+        self.button1.pack()
+        self.button2 = tk.Button(self.frame, text = 'Plot The Data', width = 25, command = self.new_window_plot)
+        self.button2.pack()
+        self.button3 = tk.Button(self.frame, text = 'export data', width = 25, command = x.export_data)
+        self.button3.pack()
+        self.button4 = tk.Button(self.frame, text = 'Is Sample Posative', width = 25, command = self.is_sample_posative)
+        self.button4.pack()
+        self.button5 = tk.Button(self.frame, text = 'Self Test', width = 25, command = self.run_self_test)
+        self.button5.pack()
+        self.frame.pack()
+        
+        self.y = 11
 
-        container.pack(side="top", fill="both", expand = True)
-
-        container.grid_rowconfigure(0, weight=1)
-        container.grid_columnconfigure(0, weight=1)
-
-        self.frames = {}
-
-        for F in (StartPage, PageOne, PageTwo):
-
-            frame = F(container, self)
-
-            self.frames[F] = frame
-
-            frame.grid(row=0, column=0, sticky="nsew")
-
-        self.show_frame(StartPage)
-
-    def show_frame(self, cont):
-
-        frame = self.frames[cont]
-        frame.tkraise()
+    def new_window_cd(self):
+        self.newWindow = tk.Toplevel(self.master)
+        self.app = DataDone(self.newWindow)
+    
+    def new_window_plot(self):
+        self.newWindow = tk.Toplevel(self.master)
+        self.app = plot_data(self.newWindow)
+        
+    def run_self_test(self):
+        result = x.self_check()
+        if result == False:
+            print('the self test has failed: aborting')
+            self.master.destroy()
+            
+        else:
+            print('The self check has completed, there were no reported errors')
+            
+    def is_sample_posative(self):
+        
+        if x.is_sample_posative() == True:
+            messagebox.showinfo("Result", "The sample is posative")
+            
+        else:
+            messagebox.showinfo("Result", "The sample is not posative")
 
         
-class StartPage(tk.Frame):
 
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self,parent)
-        label = tk.Label(self, text="IB-LJ BioSensor")
-        label.pack(pady=10,padx=10)
+        
+        
         
 
 
-        button = tk.Button(self, text="view Output graph",
-                            command=lambda: controller.show_frame(PageOne))
-        button.pack()
 
-        button2 = tk.Button(self, text="View Camera Output",
-                            command=lambda: controller.show_frame(PageTwo))
-        button2.pack()
-
-
-
-class PageOne(tk.Frame):
-
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        label = tk.Label(self, text="Output graph")
-        label.pack(pady=10,padx=10)
-
-        button1 = tk.Button(self, text="Back to Home",
-                            command=lambda: controller.show_frame(StartPage))
-        button1.pack()
+class DataDone:
+    def __init__(self, master):
+        self.master = master
+        self.frame = tk.Frame(self.master)
+        
+        self.label = tk.Label(self.frame, text="The Data Has Collected, here is a dog")
+        self.label.pack(pady=10,padx=10)
+        
+        x.record_data(10,0.1)
+               
+        
+        self.img = ImageTk.PhotoImage(Image.open('dog.jpg'))
+        self.panel = tk.Label(self.frame, image = self.img)
+        self.panel.image = self.img
+        self.panel.pack()
+        
+        self.quitButton = tk.Button(self.frame, text = 'Quit', width = 25, command = self.close_windows)
+        self.quitButton.pack()
+        self.frame.pack()
         
         
-        x.get_raw_data()
+    
+
+    def close_windows(self):
+        self.master.destroy()
+        
+class plot_data:
+    def __init__(self, master):
+        self.master = master
+        self.frame = tk.Frame(self.master)
+        
+        
+               
+        
+        
         data = x.get_raw_data()
         
-        if data == None:
+        if data == []:
             
-            img = ImageTk.PhotoImage(Image.open('dog.jpg'))
-            panel = tk.Label(self, image = img)
-            panel.image = img
-            panel.pack()
+            self.label = tk.Label(self.frame, text="You Havent Collected Any Data")
+            self.label.pack(pady=10,padx=10)
+            
+            self.img = ImageTk.PhotoImage(Image.open('dog2.jpg'))
+            self.panel = tk.Label(self.frame, image = self.img)
+            self.panel.image = self.img
+            self.panel.pack()
             
         else:    
+            
+            self.label = tk.Label(self.frame, text="plot of the data")
+            self.label.pack(pady=10,padx=10)
 
             data2 = []
             for i in data:
@@ -87,74 +133,17 @@ class PageOne(tk.Frame):
             plt.scatter((range(0,len(data2))),data2)
             plt.savefig('out', format = 'png')
             
-            img = ImageTk.PhotoImage(Image.open('out'))
-            panel = tk.Label(self, image = img)
-            panel.image = img
-            panel.pack()
-        
-        
-
-
-class PageTwo(tk.Frame):
-
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        label = tk.Label(self, text="Camera Output")
-        label.pack(pady=10,padx=10)
-
-        button1 = tk.Button(self, text="Back to Home",
-                            command=lambda: controller.show_frame(StartPage))
-        button1.pack()
-        
-        img = ImageTk.PhotoImage(Image.open('dog.jpg'))
-        panel = tk.Label(self, image = img)
-        panel.image = img
-        panel.pack()
-        
-class CollectDataPage(tk.Frame):
-
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self,parent)
-        label = tk.Label(self, text="Collecting Data, Look at this dog")
-        label.pack(pady=10,padx=10)
-        
-        img = ImageTk.PhotoImage(Image.open('dog.jpg'))
-        panel = tk.Label(self, image = img)
-        panel.image = img
-        panel.pack()
-        
-        x.record_data()
-
-app = SeaofBTCapp()
-app.mainloop()
-"""
-#import tkinter as tk
-
-class Demo1:
-    def __init__(self, master):
-        self.master = master
-        self.frame = tk.Frame(self.master)
-        self.button1 = tk.Button(self.frame, text = 'New Window', width = 25, command = self.new_window)
-        self.button1.pack()
-        self.button2 = tk.Button(self.frame, text = 'New Window', width = 25, command = self.new_window)
-        self.button2.pack()
-        self.frame.pack()
-
-    def new_window(self):
-        self.newWindow = tk.Toplevel(self.master)
-        self.app = Demo2(self.newWindow)
-
-class Demo2:
-    def __init__(self, master):
-        self.master = master
-        self.frame = tk.Frame(self.master)
-        
-        self.panel = tk.Label(self, image = ImageTk.PhotoImage(Image.open('dog.jpg')))
-        self.panel.pack()
+            self.img = ImageTk.PhotoImage(Image.open('out'))
+            self.panel = tk.Label(self.frame, image = self.img)
+            self.panel.image = self.img
+            self.panel.pack()
         
         self.quitButton = tk.Button(self.frame, text = 'Quit', width = 25, command = self.close_windows)
         self.quitButton.pack()
         self.frame.pack()
+        
+        
+    
 
     def close_windows(self):
         self.master.destroy()
