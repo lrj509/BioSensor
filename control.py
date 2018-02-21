@@ -103,9 +103,7 @@ class control():
 
         #calculate time elapsed and number of data points per sensor
         time_elapsed = data[-1][3]
-        number_data_points_1 = len(data[0])
-        number_data_points_2 = len(data[1])
-        number_data_points_3 = len(data[2])
+        number_data_points = len(data)
         
         #check values
         print(total_1)
@@ -114,9 +112,9 @@ class control():
         print(data[-1][3])
         
         #calculate purity using simplified sum 
-        purity_1 = total_1*time_elapsed*purity_coefficient_1/number_data_points_1
-        purity_2 = total_2*time_elapsed*purity_coefficient_2/number_data_points_2
-        purity_3 = total_3*time_elapsed*purity_coefficient_3/number_data_points_3
+        purity_1 = total_1*time_elapsed*purity_coefficient_1/number_data_points
+        purity_2 = total_2*time_elapsed*purity_coefficient_2/number_data_points
+        purity_3 = total_3*time_elapsed*purity_coefficient_3/number_data_points
 
         print(purity_1)
         print(purity_2)
