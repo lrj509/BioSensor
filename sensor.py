@@ -1,5 +1,5 @@
 #Import python modules
-#import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 import time
 from tsl2591 import tsl2591 #might need to configure i2c
 
