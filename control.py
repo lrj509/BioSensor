@@ -105,20 +105,11 @@ class control():
         time_elapsed = data[-1][3]
         number_data_points = len(data)
         
-        #check values
-        print(total_1)
-        print(total_2)
-        print(total_3)
-        print(data[-1][3])
-        
         #calculate purity using simplified sum 
         purity_1 = total_1*time_elapsed*purity_coefficient_1/number_data_points
         purity_2 = total_2*time_elapsed*purity_coefficient_2/number_data_points
         purity_3 = total_3*time_elapsed*purity_coefficient_3/number_data_points
-
-        print(purity_1)
-        print(purity_2)
-        print(purity_3)
+        
         #give all the purity values (one for each sensor method - these need to be assigned appropriately when reported)
         return(purity_1, purity_2, purity_3)
         
