@@ -85,17 +85,15 @@ class control():
     
 
         
-    def calculate_purity(purity_coefficent):
+    def calculate_purity(purity_coefficent_1, purity_coefficient_2, purity_coefficient_3):
 
-        # acquire inputs
+        #acquire inputs
         data =[[1,1,1,0],[1,2,2,0.5],[1,1,1,1],[1,1,1,1.5]]
-
 
         #initialise variables
         total_1 = 0
         total_2 = 0
         total_3 = 0
-
 
         #calculate sum of sensor inputs
         for i in data:
@@ -103,30 +101,42 @@ class control():
             total_2 += i[1]
             total_3 += i[2]
 
-
-        #calculate time elapsed
+        #calculate time elapsed and number of data points per sensor
         time_elapsed = data[-1][3]
-
-
+        number_data_points_1 = len(data[0])
+        number_data_points_2 = len(data[1])
+        number_data_points_3 = len(data[2])
+        
         #check values
         print(total_1)
         print(total_2)
         print(total_3)
         print(data[-1][3])
+        
+        #calculate purity using simplified sum 
+        purity_1 = total_1*time_elapsed*purity_coefficient_1/number_data_points_1
+        purity_2 = total_2*time_elapsed*purity_coefficient_2/number_data_points_2
+        purity_3 = total_3*time_elapsed*purity_coefficient_3/number_data_points_3
 
-
+        print(purity_1)
+        print(purity_2)
+        print(purity_3)
+        #give all the purity values (one for each sensor method - these need to be assigned appropriately when reported)
+        return(purity_1, purity_2, purity_3)
+        
+        #error checking
+        
+""" Previous:
         #calculate means of data
         number_data_points = len(data)
         mean_1 = total_1/number_data_points
         mean_2 = total_2/number_data_points
         mean_3 = total_3/number_data_points
 
-
         # mean of data * time taken ----> gives overall light emitted
         overall_light_1 = mean_1 * time_elapsed
         overall_light_2 = mean_2 * time_elapsed
         overall_light_3 = mean_3 * time_elapsed
-
 
         # multiply by purity coefficient (determined using standards) to give purity
         purity_1 = overall_light_1 * purity_coefficient
@@ -137,13 +147,8 @@ class control():
         print(purity_2)
         print(purity_3)
 
-        return(purity_1, purity_2, purity_3)
-
-
-        #can be simplified into one sum: purity_1 = total_1*time_elapsed*purity_coefficent/number_data_points
-        #error checking
+        return(purity_1, purity_2, purity_3)        
         
-        """
         Previously:
         Working progress. Converts peak fluorescence recorded into
         a sample purity percentage.
