@@ -1,7 +1,7 @@
 #Import python modules
 #import RPi.GPIO as GPIO
 import time
-#import tsl2591
+from tsl2591 import tsl2591 #might need to configure i2c
 
 class sensor():
 
@@ -81,7 +81,7 @@ class sensor():
             t = 0
             while t <= 60:       
                 if t % 5 == 0: # if t modulus 5 is zero
-                    print(t, lux)
+                    print(t, lux, full, ir)
         except:
             pass
         
