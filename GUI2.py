@@ -1,7 +1,10 @@
 #Imports 
 import tkinter as tk
-from PIL import ImageTk, Image
+from tkinter import PhotoImage
 import matplotlib.pyplot as plt
+#from PIL import Image
+#from PIL import ImageTk
+
 from control import control
 import time
 from tkinter import messagebox
@@ -27,7 +30,7 @@ class Demo1:
         """
         
         self.master = master
-        self.frame = tk.Frameimport time(self.master)
+        self.frame = tk.Frame(self.master)
         self.button1 = tk.Button(self.frame, text = 'Collect Data', width = 25, command = self.new_window_cd)
         self.button1.pack()
         self.button2 = tk.Button(self.frame, text = 'Plot The Data', width = 25, command = self.new_window_plot)
@@ -177,7 +180,7 @@ class plot_data:
                 data2.append(i[0])
     
             plt.scatter((range(0,len(data2))),data2)
-            plt.savefig('out', format = 'png')
+            plt.savefig('out', format = 'gif')
             
             self.img = ImageTk.PhotoImage(Image.open('out'))
             self.panel = tk.Label(self.frame, image = self.img)
