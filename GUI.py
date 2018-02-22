@@ -1,100 +1,260 @@
-from tkinter import *
-from tkinter import messagebox
-from tkinter import simpledialog
-from control import control
+#Imports 
+import tkinter as tk
+from tkinter import PhotoImage
 import matplotlib.pyplot as plt
+from PIL import Image
+from PIL import ImageTk
+from camera import camera
+from control import control
+from tkinter import messagebox
 
-y = 11
-
+#initialise the control class
 x = control()
-print(x.self_check())
-x.record_data(10,0.5)
+y = camera()
 
-class GUI():
+class Demo1():
     
     """
-    This class handles all the frontend functionality of the program.
-
-    @authors awb519 & lwj
+    
+    This class handles the first screen, where the user chooses what to do
+    
     """
     
-    def __init__(self,master):
+    def __init__(self, master):
         
         """
-        the init method for the class
-        """
-        frame = Frame(master)
-        frame.grid()
-
-        self.variable = StringVar(master)
-        self.variable.set("Please Select") # default value
-
-##        text = Text(frame)
-##        text.insert(INSERT, "Hello....142.")
-##        text.grid(row = 1, column=2)
-
-        w = OptionMenu(frame, self.variable, "Opiates", "Cocaine")
-        w.grid(row =1, column =1, padx= 80, pady=20)
-
         
-        self.button = Button(
-            frame, text="Run Test", fg="Black", command=self.result)
-        self.button.grid(row =2, column =1, padx= 30,pady=5)
-
-
-
-
-    def result(self):
-
-        text.grid(row = 1, column=2)
-        if y > 8:
-            messagebox.showinfo("Positive", self.variable.get() + " presence confirmed", command=self.self_test())
-        else:
-            messagebox.showinfo("Negative", "Substance not detected", command=self.self_test())
-
-
- 
-
-    def self_test(self):
+        THe init function for the screen class, this populates the screen 
+        with buttons
         
         """
-        This function will call the self test in the backend, displaying true 
-        or false if it sucseeds or fails retrospectily.
+        
+        self.master = master
+        self.frame = tk.Frame(self.master)
+        self.button1 = tk.Button(self.frame, text = 'Collect Data', width = 25, command = self.new_window_cd)
+        self.button1.pack()
+        self.button2 = tk.Button(self.frame, text = 'Plot The Data', width = 25, command = self.new_window_plot)
+        self.button2.pack()
+        self.button3 = tk.Button(self.frame, text = 'export data', width = 25, command = x.export_data)
+        self.button3.pack()
+        self.button4 = tk.Button(self.frame, text = 'Is Sample Posative', width = 25, command = self.is_sample_posative)
+        self.button4.pack()
+        self.button5 = tk.Button(self.frame, text = 'Self Test', width = 25, command = self.run_self_test)
+        self.button5.pack()
+        self.button6 = tk.Button(self.frame, text = 'See Camera Output', width = 25, command = self.new_window_cam)
+        self.button6.pack()
+        self.frame.pack()
+
+    def new_window_cd(self):
+        
+        """
+        creates the window for saying that the data has completed recording
+        """
+        
+        self.newWindow = tk.Toplevel(self.master)
+        self.app = DataDone(self.newWindow)
+    
+    def new_window_plot(self):
+        
+        """
+        creates the window for plotting the data
+        """
+        
+        self.newWindow = tk.Toplevel(self.master)
+        self.app = plot_data(self.newWindow)
+        
+    def new_window_cam(self):
+        
+        """
+        creates the window for showing the camera output
+        """
+        
+        self.newWindow = tk.Toplevel(self.master)
+        self.app = cam_output(self.newWindow)
+        
+    def run_self_test(self):
+        
+        """
+        runs the self check, aborts the process if the self check fails
         """
         
         result = x.self_check()
         
-       #Error checking 
-        
-        if type(result) != bool:
-            raise Exception("Self check should return a bool")
+        if result == False:
+            print('the self test has failed: aborting')
+            self.master.destroy()
             
         else:
-            print(result)
-
-    def plot_results(self):
-
+            print('The self check has completed, there were no reported errors')
+            
+    def is_sample_posative(self):
+        
         """
-        This function will plot the light levels over time
+        creates a dialogue box saying if the sample is posative or negative 
         """
+        
+        if x.is_sample_posative() == True:
+            messagebox.showinfo("Result", "The sample is posative")
+            
+        else:
+            messagebox.showinfo("Result", "The sample is not posative")      
+        
 
+
+
+class DataDone():
+    
+    """
+    
+    window for when the data has finished collecting, will displace a picture 
+    of a dog
+    
+    """
+    
+    def __init__(self, master):
+        
+        """
+        
+        The init method
+        
+        """
+        
+        self.master = master
+        self.frame = tk.Frame(self.master)
+        
+        self.label = tk.Label(self.frame, text="The Data Has Collected, here is a dog")
+        self.label.pack(pady=10,padx=10)
+        
+        x.record_data(10,0.1)
+               
+        
+        self.img = ImageTk.PhotoImage(Image.open('dog.jpg'))
+        self.panel = tk.Label(self.frame, image = self.img)
+        self.panel.image = self.img
+        self.panel.pack()
+        
+        self.quitButton = tk.Button(self.frame, text = 'Quit', width = 25, command = self.close_windows)
+        self.quitButton.pack()
+        self.frame.pack()
+        
+        
+    
+
+    def close_windows(self):
+        
+        """
+        
+        closes the window
+        
+        """
+        
+        self.master.destroy()
+        
+class plot_data():
+    
+    """
+    
+    This class handles displaying the data in the form of a graph. all of the 
+    handling is done in the init method
+    
+    """
+    
+    def __init__(self, master):
+        self.master = master
+        self.frame = tk.Frame(self.master)
+        
+        
+               
+        
         
         data = x.get_raw_data()
-
-        data2 = []
-        for i in data:
-            data2.append(i[0])
-
-        plt.scatter((range(0,len(data2))),data2)
-
+        
+        if data == []:
             
-    
-    
-    
-    
-root = Tk()
+            self.label = tk.Label(self.frame, text="You Havent Collected Any Data")
+            self.label.pack(pady=10,padx=10)
+            
+            self.img = ImageTk.PhotoImage(Image.open('dog2.jpg'))
+            self.panel = tk.Label(self.frame, image = self.img)
+            self.panel.image = self.img
+            self.panel.pack()
+            
+        else:    
+            
+            self.label = tk.Label(self.frame, text="plot of the data")
+            self.label.pack(pady=10,padx=10)
 
-prog = GUI(root)
+            data2 = []
+            for i in data:
+                data2.append(i[0])
+    
+            plt.scatter((range(0,len(data2))),data2)
+            plt.savefig('out', format = 'png')
+            
+            self.img = ImageTk.PhotoImage(Image.open('out'))
+            self.panel = tk.Label(self.frame, image = self.img)
+            self.panel.image = self.img
+            self.panel.pack()
+        
+        self.quitButton = tk.Button(self.frame, text = 'Quit', width = 25, command = self.close_windows)
+        self.quitButton.pack()
+        self.frame.pack()
+        
+        
+    
 
-root.mainloop()
-root.destroy() 
+    def close_windows(self):
+        self.master.destroy()
+        
+class cam_output():
+    
+    """
+    
+    displays the camera output
+    
+    """
+    
+    def __init__(self, master):
+        
+        """
+        
+        The init method
+        
+        """
+        
+        self.master = master
+        self.frame = tk.Frame(self.master)
+        
+        self.label = tk.Label(self.frame, text="camera output")
+        self.label.pack(pady=10,padx=10)
+        
+        y.get_picture()       
+        
+        self.img = ImageTk.PhotoImage(Image.open('image.jpg'))
+        self.panel = tk.Label(self.frame, image = self.img)
+        self.panel.image = self.img
+        self.panel.pack()
+        
+        self.quitButton = tk.Button(self.frame, text = 'Quit', width = 25, command = self.close_windows)
+        self.quitButton.pack()
+        self.frame.pack()
+        
+        
+    
+
+    def close_windows(self):
+        
+        """
+        
+        closes the window
+        
+        """
+        
+        self.master.destroy()
+
+def main(): 
+    root = tk.Tk()
+    app = Demo1(root)
+    root.mainloop()
+
+main()
