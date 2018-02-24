@@ -164,10 +164,10 @@ class control():
         
         return(pass_or_fail)
 
-    def is_sample_posative(self):
+    def is_sample_positive(self):
 
         """
-        This function will return true if the sample is posative or
+        This function will return true if the sample is positive or
         false if the sample tests negative.
         @return bool indecating the test result
         """
