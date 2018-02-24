@@ -87,17 +87,17 @@ class Demo1():
         else:
             print('The self check has completed, there were no reported errors')
             
-    def is_sample_posative(self):
+    def is_sample_positive(self):
         
         """
-        creates a dialogue box saying if the sample is posative or negative 
+        creates a dialogue box saying if the sample is positive or negative 
         """
         
-        if x.is_sample_posative() == True:
-            messagebox.showinfo("Result", "The sample is posative")
+        if x.is_sample_positive() == True:
+            messagebox.showinfo("Result", "The sample is positive")
             
         else:
-            messagebox.showinfo("Result", "The sample is not posative")      
+            messagebox.showinfo("Result", "The sample is not positive")      
         
 
 

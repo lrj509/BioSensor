@@ -1,6 +1,6 @@
 #Import python modules
-#import tsl2591
-#import Adafruit_CharLCD as LCD
+import tsl2591
+import Adafruit_CharLCD as LCD
 
 
 class sensor():
@@ -18,7 +18,7 @@ class sensor():
         
         Gets the digital sensor value
         
-        
+        """
     
         tsl = tsl2591.Tsl2591()  # initialize
         full, ir = tsl.get_full_luminosity()  # read raw values (full spectrum and ir spectrum)
@@ -26,7 +26,7 @@ class sensor():
         print ('Lux:', lux)
         digital = round(lux,1)
         return(digital)
-        """
+        
         return(1.0)
 
 
@@ -35,7 +35,7 @@ class sensor():
         """
         This method displays the lux value on the LCD output display
     
-             
+        """    
         
         # Raspberry Pi pin configuration:
         lcd_rs        = 7  # Note this might need to be changed to 21 for older revision Pi's.
@@ -66,7 +66,7 @@ class sensor():
         lcd.message(display_message)
         #Displays output for time_to_sleep seconds and then clears message
         
-        """
+        
         
         return
         
