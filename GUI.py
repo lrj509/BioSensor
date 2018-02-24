@@ -37,7 +37,7 @@ class Demo1():
         self.button2.pack()
         self.button3 = tk.Button(self.frame, text = 'export data', width = 25, command = x.export_data)
         self.button3.pack()
-        self.button4 = tk.Button(self.frame, text = 'Is Sample Posative', width = 25, command = self.is_sample_posative)
+        self.button4 = tk.Button(self.frame, text = 'Is Sample Positive', width = 25, command = self.is_sample_positive)
         self.button4.pack()
         self.button5 = tk.Button(self.frame, text = 'Self Test', width = 25, command = self.run_self_test)
         self.button5.pack()
