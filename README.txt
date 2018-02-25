@@ -1,4 +1,20 @@
-# BioSensor
+BioSensor Project
+
+This project was undertaken as part of the MSc BIO00052M Data Analysis and Programming
+in the Biosciences module. 
+
+To run the project, run the GUI.py code. 
+
+Dependancies:
+
+ - python 3 or greater
+ - picamera
+ - matplotlib
+ - Python Imaging Library
+ - tsl2591
+ - Adafruit_CharLCD
+
+
 
 example code:
 #Previous (This has been kept to show the progression of code):
