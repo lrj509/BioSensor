@@ -24,6 +24,7 @@ Objectives for the project:
  - to have a self check
  - to be able to see if the sample is positive
  - to use a digital like sensor
+ - be simple to use
 
 example code:
 #Previous (This has been kept to show the progression of code):
