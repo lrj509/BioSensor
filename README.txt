@@ -3,7 +3,7 @@ BioSensor Project
 This project was undertaken as part of the MSc BIO00052M Data Analysis and Programming
 in the Biosciences module. 
 
-To run the project, run the GUI.py code. 
+To run the project, run the GUI.py code. If running on anaconda, comment out the sensor parts
 
 Dependancies:
 
@@ -15,6 +15,15 @@ Dependancies:
  - Adafruit_CharLCD
 
 
+Objectives for the project:
+
+ - have a graphical user interface
+ - to be able to export the data 
+ - to be able to see the max peak of the data
+ - to produce a graph of the sensor values
+ - to have a self check
+ - to be able to see if the sample is positive
+ - to use a digital like sensor
 
 example code:
 #Previous (This has been kept to show the progression of code):
